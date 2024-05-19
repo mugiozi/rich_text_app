@@ -1,0 +1,44 @@
+<!-- app/views/articles/edit.html.erb -->
+<%= form_with(model: @article, local: true) do |form| %>
+  <% if @article.errors.any? %>
+    <div id="error_explanation" tabindex="-1">
+      <h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:</h2>
+      <ul>
+        <% @article.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <br>
+    <%= form.label :title %>
+    <br>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <br>
+    <%= form.label :description %>
+    <br>
+    <%= form.text_area :description, maxlength: 20 %>
+  </div>
+
+  <div class="field">
+    <br>
+    <%= form.label :body %>
+    <br>
+    <%= form.rich_text_area :body %>
+  </div>
+
+  <div class="actions">
+    <br>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<div>
+  <br>
+  <%= link_to 'Back to List', articles_path %>
+</div>

@@ -1,0 +1,86 @@
+# 新しい Rails プロジェクトを作成
+rails new rich_text_app
+
+# プロジェクトディレクトリに移動
+cd rich_text_app
+
+# Action Text をインストール
+rails action_text:install
+
+# マイグレーションを実行
+rails db:migrate
+
+# 必要な JavaScript パッケージをインストール
+yarn add @rails/actiontext trix
+
+# Article モデルを作成
+rails generate model Article title:string
+
+# マイグレーションを実行
+rails db:migrate
+
+# リッチテキストを Article モデルに追加
+rails generate migration add_body_to_articles
+
+migrateionファイルを編集。
+class AddBodyToArticles < ActiveRecord::Migration[7.0]
+  def change
+    add_column :articles, :body, :text
+  end
+end
+
+# マイグレーションを実行
+rails db:migrate
+
+
+以下はリッチテキスト実装。
+
+
+gem 'mini_magick'
+
+bundle install
+
+gemfileに以下を追加
+gem 'mini_magick'
+gem "image_processing", "~> 1.2"
+
+rails active_storage:install
+rails db:migrate
+
+Magicimageインストール（手動）
+管理者権限のないところに保存
+https://imagemagick.org/archive/binaries/ImageMagick-7.1.1-32-Q16-HDRI-x64-dll.exe
+
+アクションコントローラーshowメソッドに以下を追加
+  def show
+		@content = @article.body
+  end
+
+show.html.erbで見せるリッチテキストは下記
+<p>
+  <strong>Body:</strong>
+  <%= render @content.body %>
+</p>
+
+
+以下のファイルを編集。
+app/views/action_text/rich_text/rich_text.thml.erb
+app/views/acrive_storage/blobs/_vlob.thml.erb
+app.views/layouts/application.html.erb
+app/models/article.rb
+app/javascript/application.js
+config/importmap.rb
+app/assets/stylesheets/application.css
+
+
+
+
+require 'mini_magick'
+MiniMagick.cli = :imagemagick
+image = MiniMagick::Image.open("C:\Users\mugio\input.jpg")
+image.resize "800x600"
+image.write "path/to/your/resized_image.jpg"
+
+
+
+C:/Users/mugio/rich_text_app/test0519.rb
